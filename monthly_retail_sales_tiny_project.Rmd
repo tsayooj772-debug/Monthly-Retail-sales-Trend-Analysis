@@ -1,0 +1,220 @@
+---
+title: "Monthly Retail Sales Trend Analysis"
+author: "Sayooj Sathiyan T"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
+---
+
+**Enrollment No.: 2505101270260**
+
+# 1. Introduction
+
+This Tiny Project analyses monthly retail sales data using R. The study examines
+sales, advertising expenditure, customer count, average order value and returns.
+It demonstrates data importing, preprocessing and cleaning, statistical
+exploration, graph creation, interpretation, findings and conclusion.
+
+# 2. Objectives
+
+- Import monthly sales data from a CSV file.
+- Check the structure and quality of the data.
+- Perform basic preprocessing and cleaning.
+- Calculate descriptive statistics.
+- Study relationships between sales, advertising and customers.
+- Create graphs and interpret the results.
+- Summarize findings and conclusion.
+
+# 3. Database / Data Importing
+
+```{r import}
+sales_data <- read.csv("monthly_sales_data.csv")
+sales_data
+```
+
+**Explanation:** `read.csv()` reads the CSV file into an R data frame.
+
+# 4. Data Preprocessing and Cleaning
+
+```{r cleaning}
+str(sales_data)
+colSums(is.na(sales_data))
+sum(duplicated(sales_data))
+
+sales_data$Month <- as.character(sales_data$Month)
+sales_data <- sales_data[!duplicated(sales_data), ]
+
+summary(sales_data)
+```
+
+**Explanation:** `str()` checks the structure and data types. `is.na()` checks for
+missing values, while `duplicated()` checks duplicate records. The cleaning step
+removes any duplicate rows before analysis.
+
+# 5. Data Analysis and Statistical Exploration
+
+## 5.1 Descriptive statistics
+
+```{r descriptive}
+mean_sales <- mean(sales_data$Sales)
+median_sales <- median(sales_data$Sales)
+sd_sales <- sd(sales_data$Sales)
+mean_customers <- mean(sales_data$Customers)
+
+mean_sales
+median_sales
+sd_sales
+mean_customers
+```
+
+**Explanation:** `mean()` calculates the average, `median()` gives the middle
+observation, and `sd()` measures the spread of sales values.
+
+## 5.2 Total sales and returns
+
+```{r totals}
+total_sales <- sum(sales_data$Sales)
+total_returns <- sum(sales_data$Returns)
+
+total_sales
+total_returns
+```
+
+**Explanation:** `sum()` adds all monthly observations to obtain the total sales
+and total returns for the study period.
+
+## 5.3 Correlation analysis
+
+```{r correlation}
+cor_advertising_sales <- cor(
+  sales_data$Advertising_Spend,
+  sales_data$Sales
+)
+
+cor_customer_sales <- cor(
+  sales_data$Customers,
+  sales_data$Sales
+)
+
+cor_advertising_sales
+cor_customer_sales
+```
+
+**Explanation:** `cor()` measures the strength and direction of a linear
+relationship between two numeric variables.
+
+# 6. Graph and Plot Creation
+
+## 6.1 Monthly sales trend
+
+```{r sales-trend}
+plot(
+  sales_data$Month,
+  sales_data$Sales,
+  type = "o",
+  main = "Monthly Sales Trend",
+  xlab = "Month",
+  ylab = "Sales",
+  las = 2
+)
+```
+
+**Interpretation:** The line graph shows how sales changed over the 24-month period.
+
+## 6.2 Monthly customer count
+
+```{r customers}
+barplot(
+  sales_data$Customers,
+  names.arg = sales_data$Month,
+  main = "Monthly Customer Count",
+  xlab = "Month",
+  ylab = "Customers",
+  las = 2
+)
+```
+
+**Interpretation:** The bar chart compares the number of customers month by month.
+
+## 6.3 Advertising spend and sales
+
+```{r advertising}
+plot(
+  sales_data$Advertising_Spend,
+  sales_data$Sales,
+  main = "Advertising Spend vs Sales",
+  xlab = "Advertising Spend",
+  ylab = "Sales",
+  pch = 19
+)
+
+abline(lm(Sales ~ Advertising_Spend, data = sales_data))
+```
+
+**Interpretation:** The scatter plot helps visualize the association between
+advertising expenditure and sales.
+
+## 6.4 Distribution of monthly sales
+
+```{r histogram}
+hist(
+  sales_data$Sales,
+  main = "Distribution of Monthly Sales",
+  xlab = "Sales",
+  ylab = "Number of Months"
+)
+```
+
+**Interpretation:** The histogram shows the distribution of monthly sales values.
+
+## 6.5 Monthly returns
+
+```{r returns}
+plot(
+  sales_data$Month,
+  sales_data$Returns,
+  type = "o",
+  main = "Monthly Returns",
+  xlab = "Month",
+  ylab = "Returns",
+  las = 2
+)
+```
+
+**Interpretation:** This graph shows how the number of returned orders changes over time.
+
+# 7. Findings
+
+1. The dataset contains 24 monthly observations.
+2. Total sales during the study period are approximately 1,415,800.
+3. Average monthly sales are approximately 58,991.67.
+4. The median monthly sales are 58,400.00.
+5. Average monthly customers are approximately 693.33.
+6. The correlation between advertising spend and sales is approximately 0.999.
+7. The correlation between customer count and sales is approximately 1.000.
+8. Total recorded returns are 1051.
+
+# 8. Conclusion
+
+The project demonstrates a complete R data-analysis workflow. Monthly sales,
+customer count, advertising expenditure and returns were imported, checked,
+analysed and visualized. The dataset shows an upward sales trend over the study
+period, together with increasing customer counts. Advertising spend and sales
+also show a strong positive association in this sample. Correlation describes
+association and does not by itself prove that advertising caused the increase
+in sales.
+
+# 9. R Code Summary
+
+The project uses `read.csv()` for importing data, `str()`, `is.na()` and
+`duplicated()` for preprocessing, `mean()`, `median()`, `sd()` and `sum()` for
+statistical analysis, `cor()` for correlation, and `plot()`, `barplot()`,
+`hist()` and `lm()` for visualization and trend analysis.
+
+# 10. Final Outcome
+
+The R Markdown file can be opened in RStudio and knitted to HTML. The CSV file
+is included in the same folder, so the project does not depend on a
+computer-specific file path.

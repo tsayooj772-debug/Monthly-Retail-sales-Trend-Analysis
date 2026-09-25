@@ -1,0 +1,56 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Monthly Retail Sales Trend Analysis</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:1000px;margin:40px auto;padding:0 22px;line-height:1.6;color:#222}
+h1{border-bottom:3px solid #333;padding-bottom:10px} h2{margin-top:35px}
+table{border-collapse:collapse;width:100%}th,td{border:1px solid #bbb;padding:8px}th{background:#eee}
+img{max-width:100%;margin:10px 0 25px}pre{background:#f4f4f4;padding:12px;overflow:auto}
+</style></head><body>
+<h1>Monthly Retail Sales Trend Analysis</h1>
+<p><b>Author:</b> Sayooj Sathiyan T</p>
+<p><b>Enrollment No.:</b> 2505101270260</p>
+<h2>1. Introduction</h2>
+<p>This project analyses monthly retail sales using R. It studies sales, advertising
+spend, customers, average order value and returns.</p>
+<h2>2. Objectives</h2>
+<ul><li>Import and clean CSV data</li><li>Perform statistical analysis</li>
+<li>Study relationships among variables</li><li>Create and interpret graphs</li></ul>
+<h2>3. Data Importing</h2>
+<pre><code>sales_data &lt;- read.csv("monthly_sales_data.csv")</code></pre>
+<h2>4. Preprocessing and Cleaning</h2>
+<pre><code>str(sales_data)
+colSums(is.na(sales_data))
+sum(duplicated(sales_data))
+sales_data &lt;- sales_data[!duplicated(sales_data), ]</code></pre>
+<p>The dataset contains 24 monthly records with no missing or duplicate records.</p>
+<h2>5. Statistical Exploration</h2>
+<table><tr><th>Measure</th><th>Value</th></tr>
+<tr><td>Total sales</td><td>1,415,800</td></tr>
+<tr><td>Mean monthly sales</td><td>58,991.67</td></tr>
+<tr><td>Median monthly sales</td><td>58,400.00</td></tr>
+<tr><td>Sales standard deviation</td><td>11,113.72</td></tr>
+<tr><td>Mean customers</td><td>693.33</td></tr>
+<tr><td>Advertising–sales correlation</td><td>0.999</td></tr>
+<tr><td>Customer–sales correlation</td><td>1.000</td></tr>
+<tr><td>Total returns</td><td>1051</td></tr></table>
+<h2>6. Graphs and Interpretation</h2>
+<h3>Monthly Sales Trend</h3><img src="monthly_sales_trend.png">
+<p>The graph shows an upward sales trend over the study period.</p>
+<h3>Monthly Customer Count</h3><img src="monthly_customers.png">
+<p>Customer counts generally increase across the period.</p>
+<h3>Advertising Spend vs Sales</h3><img src="advertising_vs_sales.png">
+<p>There is a strong positive association between advertising spend and sales in this sample.</p>
+<h3>Distribution of Monthly Sales</h3><img src="sales_distribution.png">
+<p>The histogram displays the spread of monthly sales.</p>
+<h3>Monthly Returns</h3><img src="monthly_returns.png">
+<p>Returns generally rise along with the scale of monthly activity.</p>
+<h2>7. Findings</h2>
+<ol><li>24 monthly observations were analysed.</li><li>Total sales were 1,415,800.</li>
+<li>Mean monthly sales were 58,991.67.</li><li>Mean customers were 693.33.</li>
+<li>Advertising–sales correlation was 0.999.</li><li>Customer–sales correlation was 1.000.</li></ol>
+<h2>8. Conclusion</h2>
+<p>The project demonstrates importing, cleaning, statistical exploration and visualization
+using R. The sample shows increasing sales and customers and strong positive associations
+between sales and both advertising expenditure and customer count. These correlations
+describe the sample and do not prove causation.</p>
+</body></html>
